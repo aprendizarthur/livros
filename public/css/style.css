@@ -1,0 +1,89 @@
+/*Seletores de tag*/
+body{
+    background-color: #F1F1F1 !important;
+}
+
+input{
+    border-radius: 30px !important;
+}
+/*Seletores de classe------------------------------------------------------*/
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh; 
+}
+
+.box-form{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    border: solid 1px #c7c7c7;
+    padding: 1.5em;
+    height: auto;
+}
+
+.btn{
+    border: none;
+    border-radius: 30px;
+    vertical-align: middle;
+    padding: 10px 15px 10px 15px;
+}
+
+.btn-primary{
+    background-color: #000000;
+    border: solid 1px #000000;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover{
+    background-color: #FFFFFF;
+    border: solid 1px #000000;
+    color: #000000;
+}
+
+.btn-secondary{
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+.btn-secondary:hover{
+    background-color: #FFFFFF;
+    border: none;
+    color: #000000;
+    text-decoration: underline;
+}
+
+.small-detail{
+    color: #C7C7C7;
+    text-decoration: underline;
+    margin-top: 10px;
+    display: block;
+}
+
+.small-detail:hover{
+    color: #000000;
+}
+
+/*Fontes-------------------------------------------------------------------*/
+
+.dm-sans-bold {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 650;
+  font-style: normal;
+}
+
+.dm-sans-regular {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: normal;
+}
+
+.dm-sans-light {
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}

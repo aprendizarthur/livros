@@ -1,0 +1,20 @@
+{
+    "name": "arthu/livros",
+    "autoload": {
+        "psr-4": {
+            "controllers\\": "src/controllers",
+            "core\\": "src/core",
+            "database\\": "src/database",
+            "models\\": "src/models",
+            "views\\": "src/views",
+            "traits\\": "src/traits"
+        }
+    },
+    "authors": [
+        {
+            "name": "Arthur",
+            "email": "aprendizadoarthur@gmail.com"
+        }
+    ],
+    "require": {}
+}
