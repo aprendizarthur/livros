@@ -18,7 +18,7 @@ class SessionManager
      */
     public function redirectLoggedIN() : void{
         if(isset($_SESSION['user-email'])){
-            header("Location: ../books/panel.php"); 
+            header("Location: ../books/library.php"); 
         }
     }
 

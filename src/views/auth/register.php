@@ -75,7 +75,7 @@
                     </div>
                     <button class="btn btn-primary dm-sans-regular w-100 mt-3" name="submit" type="submit">Criar</button>
                 </form>
-                <a class="small-detail" href="login.php"><small class="dm-sans-light ">Já tenho uma conta</small></a>
+                <a class="small-details" href="login.php"><small class="dm-sans-light ">Já tenho uma conta</small></a>
             </div>
         </div>
     </div>

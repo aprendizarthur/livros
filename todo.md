@@ -1,1 +1,6 @@
-- controller de registro
+- excluir livros
+- página de livro (editar)
+- show separar books por status (reading, readead, to read)
+- atalho de pesquisa com padrao pronto de cada status (só lido, só )
+- corrigir relatorio library paginas 4 num quebrando layout
+- chamar métodos para que mensagens de erro exception aparecer tratada e com UI no layout do site

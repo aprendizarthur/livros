@@ -6,6 +6,7 @@
     use core\SessionManager;
     use models\{UserModel};
     use database\{Database, UserDAO};
+    
     $sessionManager = new SessionManager;
     $sessionManager->redirectLoggedIN();
 
@@ -65,7 +66,7 @@
 
                     <button class="btn btn-primary dm-sans-regular w-100 mt-3" name="submit" type="submit">Entrar</button>
                 </form>
-                <a class="small-detail" href="register.php"><small class="dm-sans-light">Não tenho uma conta</small></a>
+                <a class="small-details" href="register.php"><small class="dm-sans-light">Não tenho uma conta</small></a>
             </div>
         </div>
     </div>

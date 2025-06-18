@@ -16,7 +16,7 @@ class Database
         $this->pass = $pass;
     }
 
-    public function getConnection (){
+    public function getConnection(){
         try {
             self::$PDO = new \PDO($this->dsn, $this->user, $this->pass);
         } catch (\PDOException $e) {

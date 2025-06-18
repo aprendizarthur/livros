@@ -20,10 +20,28 @@ class AuthController
      * @var UserDAO
      */
     private $userDAO;
-    
-    public function __construct(){
+
+    /**
+     * Método que realiza o logout do usuário
+     * @return void
+     */
+    public function LogoutUser() : void{
+        if($_SERVER['REQUEST_METHOD'] && isset($_POST['submit-logout'])){
+            session_unset();
+            session_destroy();
+            header("Location: ../auth/login.php");
+            exit();
+        }
     }
 
+    /**
+     * Método que realiza o login do usuário validando inputs do UserModel e 
+     * do DB com UserDAO
+     * @param UserDAO $userDAO
+     * @param UserModel $userModel
+     * @param array $dadosPOST
+     * @return void
+     */
     public function LoginUser(UserDAO $userDAO, UserModel $userModel, array $dadosPOST){
         $this->userDAO = $userDAO;
         $this->userModel = $userModel;
@@ -39,12 +57,12 @@ class AuthController
                 throw new \Exception("Senha incorreta");
             }
 
-            //enviando dados para session e encaminhando para o panel
+            //enviando dados para session e encaminhando para a library
             $dadosUser = $this->userDAO->getUserData($dadosPOST['username']);
             $_SESSION['user-username'] = $dadosPOST['username'];
             $_SESSION['user-email'] = $dadosUser['email'];
             $_SESSION['user-id'] = (int)$dadosUser['id'];
-            header("Location: ../books/panel.php");
+            header("Location: ../books/library.php");
             exit();
         }
     }
@@ -88,14 +106,14 @@ class AuthController
             }
     
             //cadastrando usuário no DB com UserDAO recebendo os dados do POST validados
-            $userDAO->RegisterUserDB($dadosPOST['username'], $dadosPOST['email'], $dadosPOST['pass']);
+            $this->userDAO->RegisterUserDB($dadosPOST['username'], $dadosPOST['email'], $dadosPOST['pass']);
     
-            //enviando dados para a session e encaminhando para o panel
+            //enviando dados para a session e encaminhando para a library
             $dadosUser = $this->userDAO->getUserData($dadosPOST['username']);
             $_SESSION['user-email'] = $dadosPOST['email'];
             $_SESSION['user-username'] = $dadosPOST['username'];
             $_SESSION['user-id'] = (int)$dadosUser['id'];
-            header("Location: ../books/panel.php");
+            header("Location: ../books/library.php");
             exit();
         }
     }
