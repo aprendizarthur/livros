@@ -50,7 +50,14 @@ class BookModel
      *
      * @var string
      */
-    private string $notes;  
+    private string $notes; 
+    
+    /**
+     * Propriedade que recebe o status do livro
+     *
+     * @var string
+     */
+    private string $status; 
     
     //Usando trait para validação inicial de dados recebidos form de registro
     use \traits\AuthBook;
@@ -64,6 +71,7 @@ class BookModel
             $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
             $author = trim(filter_input(INPUT_POST, 'author', FILTER_SANITIZE_STRING));
             $genre = trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
+            $status = trim(filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING));
             $pages = (int)filter_input(INPUT_POST, 'pages', FILTER_SANITIZE_NUMBER_INT);
             $year = (int)filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
             $dadosPOST = [
@@ -71,13 +79,49 @@ class BookModel
                 'author' => $author,
                 'genre' => $genre,
                 'pages' => $pages,
-                'year' => $year
+                'year' => $year,
+                'status' => $status,
             ];
             $this->title = $title;
             $this->author = $author;
             $this->genre = $genre;
             $this->year = $year;
             $this->pages = $pages;
+            $this->status = $status;
+            return $dadosPOST;   
+        }
+        return [];
+    }
+
+    /**
+     * Método que pega os dados do POST referentes ao update do livro para enviar ao LibraryController
+     * @return array
+     */
+    public function getDataUpdatePOST() : array{
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit-update'])){
+            $title = trim(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_STRING));
+            $author = trim(filter_input(INPUT_POST, 'author', FILTER_SANITIZE_STRING));
+            $genre = trim(filter_input(INPUT_POST, 'genre', FILTER_SANITIZE_STRING));
+            $pages = (int)filter_input(INPUT_POST, 'pages', FILTER_SANITIZE_NUMBER_INT);
+            $year = (int)filter_input(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+            $status = filter_input(INPUT_POST, 'status', FILTER_SANITIZE_STRING);
+            $notes = filter_input(INPUT_POST, 'notes', FILTER_SANITIZE_STRING);
+            $dadosPOST = [
+                'title' => $title,
+                'author' => $author,
+                'genre' => $genre,
+                'pages' => $pages,
+                'year' => $year,
+                'status' => $status,
+                'notes' => $notes,
+            ];
+            $this->title = $title;
+            $this->author = $author;
+            $this->genre = $genre;
+            $this->year = $year;
+            $this->pages = $pages;
+            $this->status = $status;
+            $this->notes = $notes;
             return $dadosPOST;   
         }
         return [];

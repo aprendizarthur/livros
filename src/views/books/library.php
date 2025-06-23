@@ -49,16 +49,21 @@
             <div class="col-11 col-md-12 box-nav d-flex justify-content-around align-items-center">
                 <a href="newbook.php"><i class="fa-solid fa-plus fa-xl"></i></a>
                 <a class="selected" href=""><i class="fa-solid fa-book-bookmark fa-xl"></i></a>
-                <a href=""><i class="fa-solid fa-chart-simple fa-xl"></i></a>
-                <a href=""><i class="fa-solid fa-user fa-xl"></i></a>
+                <a href="charts.php"><i class="fa-solid fa-chart-simple fa-xl"></i></a>
+                <a href="../auth/update.php"><i class="fa-solid fa-user fa-xl"></i></a>
                 <form id="form-logout" method="POST"><button class="btn-submit-alt" name="submit-logout" type="submit" style="color:rgb(255, 178, 178);"><i class="fa-solid fa-power-off fa-xl"></i></button></form>
             </div>
             <div class="col-11 col-md-12 box-content">
                 <h1 class="dm-sans-bold">Minha biblioteca</h1>
+
                 
                 <form id="form-search" method="GET" class="dm-sans-regular d-inline">
                     <div class="form-group">
                         <input required placeholder="  Pesquisar por título ou gênero" type="search" name="search" id="search">
+                        <i class="fa-solid fa-filter fa-sm mx-2"></i> 
+                        <a class="filter" href="library.php?search=em-leitura"><span class="dm-sans-light">Lendo</span></a>
+                        <a class="filter" href="library.php?search=lidos"><span class="dm-sans-light">Lidos</span></a>
+                        <a class="filter" href="library.php?search=por-ler"><span class="dm-sans-light">Por ler</span></a>
                     </div>
                 </form>
                 
@@ -75,12 +80,6 @@
                         } catch (\Exception $e) {echo $e->getMessage();}
                     ?>
                 </div>
-                <!-- 
-                <div class="box-details">
-                    <i class="fa-solid fa-spinner girar mr-2"></i><h2 class="dm-sans-regular d-inline">Relatório </h2>
-                    <p class="dm-sans-regular mt-2 mb-0">Atualmente você possui <strong>89</strong> livros na biblioteca: <span class="lidos-livros"><i class="fa-solid fa-circle-check fa-xsm mr-1"></i> 75 lidos</span>, <span class="em-leitura-livros"><i class="fa-solid fa-clock fa-xsm mr-1"></i> 2 em leitura</span> e <span class="por-ler-livros"><i class="fa-solid fa-circle-exclamation fa-xsm mr-1"></i> 12 por ler</span>.</p>
-                </div> 
-                -->
             </div>
         </div>
     </div>

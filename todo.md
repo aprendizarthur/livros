@@ -1,6 +1,2 @@
-- excluir livros
-- página de livro (editar)
-- show separar books por status (reading, readead, to read)
-- atalho de pesquisa com padrao pronto de cada status (só lido, só )
-- corrigir relatorio library paginas 4 num quebrando layout
+- dados da biblioteca e usuario com charts
 - chamar métodos para que mensagens de erro exception aparecer tratada e com UI no layout do site

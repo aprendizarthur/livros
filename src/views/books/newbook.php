@@ -73,6 +73,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="dm-sans-bold" for="status">Status</label>
+                        <select class="form-control pr-1" name="status" id="status">
+                            <option class="por-ler" value="por-ler">Por Ler</option>
+                            <option class="em-leitura" value="em-leitura">Lendo</option>
+                            <option class="lidos" value="lidos">Lido</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label class="dm-sans-bold" for="genre">Gênero</label>
                             <select required class="form-control pr-1" name="genre" id="genre">
                             <option selected value="">Selecionar</option>
@@ -83,6 +92,7 @@
                             <option value="Fantasia">Fantasia</option>
                             <option value="Ficção">Ficção</option>
                             <option value="Ficção científica">Ficção Científica</option>
+                            <option value="Filosofia">Filosofia</option>
                             <option value="Historia">História</option>
                             <option value="Infantil">Infantil</option>
                             <option value="Livro Didaticos">Livros Didáticos</option>

@@ -43,6 +43,25 @@ class UserDAO
         }
     }
 
+    public function UpdateUserDB(string $username, string $email, int $userID) : void {
+        try {
+            $PDO = $this->db->getConnection();
+            $res = $PDO->prepare("UPDATE users SET username = :u, email = :e WHERE id = :i");
+            $res->bindValue(":u", $username);
+            $res->bindValue(":e", $email);
+            $res->bindValue(":i", $userID);
+            $res->execute();
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * Método que verifica se a senha do login é a mesma que existe no DB (hash)
+     * @param string $username
+     * @param string $pass
+     * @return boolean
+     */
     public function PassValidation(string $username, string $pass) : bool{
         try {
             $PDO = $this->db->getConnection();
@@ -100,23 +119,33 @@ class UserDAO
     }
 
     /**
-     * Método para retornar todos dados de um UserModel passando apenas o  username
-     * de parâmetro
-     * @param string $username
+     * Método para retornar todos dados de um UserModel passando o dado e o tipo de
+     * coluna que vamos usar de parâmetro para realizar a busca
+     * @param string|int $data
+     * @param string $searchColumn
      * @return array
      */
-    public function getUserData(string $username) : array{
+    public function getUserData(string|int $data, string $searchColumn) : array{
         try {
-            $PDO = $this->db->getConnection();
-            $res = $PDO->prepare("SELECT * FROM users WHERE username = :u");
-            $res->bindValue(":u", $username);
-            $res->execute();
-            $resultado = $res->fetchAll(\PDO::FETCH_ASSOC);
-            
-            $dadosUser = ['email' => $resultado[0]['email'], 'id' => $resultado[0]['id'], 'username' => $resultado[0]['username']];
-            
-            echo $resultado['id'];
-            return $dadosUser;
+            if($searchColumn === 'username'){
+                $PDO = $this->db->getConnection();
+                $res = $PDO->prepare("SELECT * FROM users WHERE username = :d");
+                $res->bindValue(":d", $data);
+                $res->execute();
+                $resultado = $res->fetch(\PDO::FETCH_ASSOC);
+                        
+                return $resultado;
+            }
+
+            if($searchColumn === 'id'){
+                $PDO = $this->db->getConnection();
+                $res = $PDO->prepare("SELECT * FROM users WHERE id= :d");
+                $res->bindValue(":d", $data);
+                $res->execute();
+                $resultado = $res->fetch(\PDO::FETCH_ASSOC);
+                        
+                return $resultado;
+            }
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }

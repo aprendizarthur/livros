@@ -58,7 +58,7 @@ class AuthController
             }
 
             //enviando dados para session e encaminhando para a library
-            $dadosUser = $this->userDAO->getUserData($dadosPOST['username']);
+            $dadosUser = $this->userDAO->getUserData($dadosPOST['username'], "username");
             $_SESSION['user-username'] = $dadosPOST['username'];
             $_SESSION['user-email'] = $dadosUser['email'];
             $_SESSION['user-id'] = (int)$dadosUser['id'];
@@ -116,5 +116,71 @@ class AuthController
             header("Location: ../books/library.php");
             exit();
         }
+    }
+
+    public function UpdateUser(UserModel $userModel, UserDAO $userDAO, array $dadosPOST) : void {
+        if(!empty($dadosPOST)){
+
+            //validando senha do usuário com userDAO
+            if(!$userDAO->PassValidation($_SESSION['user-username'], $dadosPOST['pass'])){
+                throw new \Exception("Senha incorreta");
+            }
+
+            //validando formato dos inputs editáveis e se já existem no DB
+            if(!$userModel->AuthUsername($dadosPOST['username'])){
+                throw new \Exception("Nome inválido, ele deve conter apenas letras sem espaços e ter entre 3-50 caracteres");
+            }
+            
+            if($dadosPOST['username'] != $_SESSION['user-username']){
+                if($userDAO->ExistsUsernameDB($dadosPOST['username'])){
+                    throw new \Exception("Username já registrado por outro usuário");
+                }
+            }
+
+            if(!$userModel->AuthEmail($dadosPOST['email'])){
+                throw new \Exception("E-mail inválido");
+            }
+
+            if($dadosPOST['email'] != $_SESSION['user-email']){
+                if($userDAO->ExistsEmailDB($dadosPOST['email'])){
+                    throw new \Exception("E-mail já registrado por outro usuário");
+                }
+            }
+
+            //atualizando dados e recarregando página
+            $userDAO->UpdateUserDB($dadosPOST['username'], $dadosPOST['email'], (int)$_SESSION['user-id']);
+            header("Location: update.php");
+            exit();
+        }
+    }
+
+    /**
+     * Método que exibe o formulário para editar dados do usuário
+     * @param UserDAO $userDAO
+     * @return void
+     */
+    public function ShowUserUpdateForm(UserDAO $userDAO) : void {
+        //pegando id do usuário
+        $userID = (int)$_SESSION['user-id'];
+        $userDATA = $userDAO->getUserData($userID, 'id');
+
+        echo '
+                <form id="form-update-book" class="form dm-sans-regular text-left" method="POST">
+                    <div class="form-group">
+                        <label class="dm-sans-bold" for="username">Username</label>
+                        <input value="'.$userDATA['username'].'" class="form-control" type="text" name="username" id="username">
+                    </div>
+                    <div class="form-group">
+                        <label class="dm-sans-bold" for="email">E-mail</label>
+                        <input value="'.$userDATA['email'].'" class="form-control" type="email" name="email" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label class="dm-sans-bold" for="password">Digite a sua senha para confirmar alterações</label>
+                        <input required class="form-control" type="password" name="pass" id="pass">
+                    </div>
+
+                    <button class="btn btn-primary dm-sans-bold w-100 mt-3" name="submit-update" type="submit">Atualizar</button>
+                </form>    
+        ';  
     }
 }

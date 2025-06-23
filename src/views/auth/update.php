@@ -2,42 +2,31 @@
 
     declare(strict_types=1);
     require("../../../vendor/autoload.php");
-    use controllers\LibraryController;
+    use controllers\{AuthController, LibraryController};
     use core\SessionManager;
     use database\{Database, UserDAO, BookDAO}; 
-    use models\{UserModel, BookModel};
+    use models\UserModel;
 
     $sessionManager = new SessionManager;
     $sessionManager->redirectNOTLoggedIN();
 
     $database = new Database("localhost", "livros", "root", "");
     $bookDAO = new BookDAO($database);
+    $userDAO = new UserDAO($database);
+    $userModel = new UserModel;
+    $dadosPOST = $userModel->getDataUpdatePOST();
+    
+    $AuthController = new AuthController;
+    //aguardando possível logout no POST submit-logout
+    $AuthController->LogoutUser();
 
-    $bookModel = new BookModel;
-    $dadosPOST = $bookModel->getDataUpdatePOST();
-
-    $LibraryController = new LibraryController;
-
-    //verificando se o livro do ID passado pelo GET foi criado pelo usuário user-id da SESSION
+    //aguardando POST submit-update para atualizar dados do usuário
     try {
-        $LibraryController->VerifyBookAcess($bookDAO);
+        $AuthController->UpdateUser($userModel, $userDAO, $dadosPOST);
     } catch (\Exception $e) {
         echo $e->getMessage();
-    } 
+    }
 
-    //atualizando dados do livro (aguardando POST submit-update)
-    try {
-        $LibraryController->UpdateBook($bookModel, $bookDAO, $dadosPOST);
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    } 
-
-    //deletando o livro (aguardando POST submit-delete)
-    try {
-        $LibraryController->DeleteBook($bookDAO);
-    } catch (\Exception $e) {
-        echo $e->getMessage();
-    } 
 
 ?>
 
@@ -67,15 +56,15 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-11 col-md-12 box-nav d-flex justify-content-around align-items-center">
-                <a href="library.php" style="color: #000000"><i class="fa-solid fa-arrow-left fa-xl"></i></a>
-                <h2 class="dm-sans-bold p-0 m-0">Editar Livro</h2>
-                <form id="form-delete" method="POST"><button class="btn-submit-alt" name="submit-delete" type="submit" style="color:rgb(255, 178, 178);"><i class="fa-solid fa-trash fa-xl"></i></i></button></form>
+                <a href="../books/library.php" style="color: #000000"><i class="fa-solid fa-arrow-left fa-xl"></i></a>
+                <h2 class="dm-sans-bold p-0 m-0">Editar conta</h2>
+                <i class="fa-solid fa-trash fa-xl" style="color: white;"></i>
             </div>
             <div class="col-11 col-md-12 box-content">
-                <?php 
-                    //mostrando formulário com dados do livro para editar
+                 <?php 
+                    //mostrando formulário com dados do usuário para editar
                     try {
-                        $LibraryController->ShowBookUpdateForm($bookDAO);
+                        $AuthController->ShowUserUpdateForm($userDAO);
                     } catch (\Exception $e) {
                         echo $e->getMessage();
                     }

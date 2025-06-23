@@ -33,7 +33,11 @@ class UserModel
     //Usando trait para validação inicial de dados recebidos form de registro
     use \traits\AuthUser;
     
-
+    /**
+     * Método que retorna os dados recebidos no POST do formulário de login
+     *
+     * @return array
+     */
     public function getDataLoginPOST() : array{
         if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])){
             $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
@@ -68,6 +72,28 @@ class UserModel
             $this->passC = $dadosPOST['passC'];
 
             return $dadosPOST;
+        }
+        return [];
+    }
+
+    /**
+     * Método que retorna os dados do POST para o formulário de atualizar dados usuário
+     * @return array
+     */
+    public function getDataUpdatePOST() : array {
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit-update'])){
+            $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
+            $email = $_POST['email'];
+            $pass = trim(filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING));
+            $dadosPOST = [
+                'username' => $username,
+                'email' => $email,
+                'pass' => $pass,
+            ];
+            $this->username = $username;
+            $this->email = $email;
+            $this->pass = $pass;
+            return $dadosPOST;   
         }
         return [];
     }

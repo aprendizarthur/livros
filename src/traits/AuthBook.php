@@ -12,7 +12,7 @@ trait AuthBook
      * @return boolean
      */
     public function AuthTitle(string $title) : bool {
-        $bool = preg_match('/[^a-zA-Z0-9 \p{L}]/u', $title) ? false : true;
+        $bool = preg_match('/[^a-zA-Z0-9 , : \p{L}-]/u', $title) ? false : true;
         return $bool;
     }
 
@@ -22,7 +22,7 @@ trait AuthBook
      * @return boolean
      */
     public function AuthAuthor(string $author) : bool {
-        $bool = preg_match('/[^a-zA-Z0-9 \p{L}]/u', $author) ? false : true;
+        $bool = preg_match('/[^a-zA-Z0-9 , - \p{L}-.]/u', $author) ? false : true;
         return $bool;
     }
 
