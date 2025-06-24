@@ -16,12 +16,16 @@ Sistema web onde usuários autenticados possam catalogar seus livros, atribuindo
 ## Tecnologias
 - PHP, MYSQL, HTML, CSS, Bootstrap (Layout Responsivo), Javascript, Charts.js, Ícones Fontawesome
 - Arquitetura MVC (primeira vez que implemento).
+- Foi utilizado strict_types no PHP.
+- Hashing de senha no banco de dados.
 - PDO para queries trazendo mais segurança tanto para o site quanto para o banco de dados.
 - JSON para transferir dados do PHP (banco de dados) para o JS (gráficos com charts.js).
 - Astah UML para criar o diagrama de classes.
 
-## Observações
+## Observações / Melhorias
 - Tudo o que foi implementado no projeto foi de forma consciente pois não peguei nenhum código no cntrl c cntrl v, mas acredito que quando eu iniciar o meu próximo projeto eu venha a ter dificuldade para organizar as classes do MVC. Porém com a prática vai se tornar algo automático.
+- Preciso melhorar o tratamento de erros, atualmente lanço exceptions e dou echo nas views.
+
 
 ### Diagrama de Classes
 <div align="center" style="margin-top: 20px;">
