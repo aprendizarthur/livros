@@ -1,58 +1,84 @@
-# Exercício: Sistema de Gerenciamento de Livros Pessoais
+# Gerenciador de Biblioteca Pessoal
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/library.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
 
 ## Objetivo
-Desenvolver um sistema web onde usuários autenticados possam catalogar seus livros lidos, atribuindo avaliações e categorizando-os.
+Sistema web onde usuários autenticados possam catalogar seus livros, atribuindo status, anotações e categorizando-os.
 
-## Requisitos Funcionais
+## Aprendizados
+- Implementar arquitetura MVC que eu consegui entender o conceito nas aulas mas tive dificuldade para abstrair e escrever o código.
+- Fazer um diagrama de classes usando o Astah (curso modelagem de dados).
+- Aprendi de fato como transformar dados do PHP em JSON e enviar para o Javascript com o json_encode.
+- Melhorei as minhas queries SQL (COUNT/SUM + CASE WHEN THEN ELSE).
+- Colocar backdrop-filter: blur() para aplicar desfoque no plano de fundo.
+  
+## Tecnologias
+- PHP, MYSQL, HTML, CSS, Bootstrap (Layout Responsivo), Javascript, Charts.js
+- Arquitetura MVC (primeira vez que implemento).
+- PDO para queries trazendo mais segurança tanto para o site quanto para o banco de dados.
+- JSON para transferir dados do PHP (banco de dados) para o JS (gráficos com charts.js).
+- Astah UML para criar o diagrama de classes.
 
-### 1. Autenticação de Usuário
-- Deve existir uma tela de login para nome de usuário e senha.
-- Opção de "Registrar" novos usuários (nome de usuário único, senha com confirmação, e-mail).
-- Autenticação baseada em sessões, garantindo acesso apenas a usuários logados.
-- Funcionalidade de "Logout".
+## Observações
+- Tudo o que foi implementado no projeto foi de forma consciente pois não peguei nenhum código no cntrl c cntrl v, mas acredito que quando eu iniciar o meu próximo projeto eu venha a ter dificuldade para organizar as classes do MVC. Porém com a prática vai se tornar algo automático.
 
-### 2. Gerenciamento de Livros
-- Após o login, o usuário será redirecionado para uma página onde poderá visualizar a sua coleção de livros.
-- Cada livro deve ter os seguintes atributos:
-  - **Título**: (Obrigatório)
-  - **Autor**: (Obrigatório)
-  - **Gênero**: (Obrigatório, com opções predefinidas como 'Ficção', 'Fantasia', 'Aventura', 'Técnico', 'Biografia', etc.)
-  - **Ano de Publicação**: (Opcional)
-  - **Número de Páginas**: (Opcional)
-  - **Avaliação**: (De 1 a 5 estrelas ou equivalente numérico, obrigatório ao adicionar/editar).
-  - **Data de Leitura**: (Opcional, data em que o livro foi finalizado).
-  - **Sinopse/Notas Pessoais**: (Opcional, área de texto livre).
-  - **Usuário**: O livro deve estar associado ao usuário que o catalogou.
-- **Adicionar Livro**: O usuário deve poder adicionar novos livros à sua coleção.
-- **Visualizar Coleção**: Os livros devem ser listados, com opções de ordenação (ex: por título, autor, avaliação) e filtragem (ex: por gênero, avaliação mínima).
-- **Editar Livro**: O usuário deve poder editar os detalhes de um livro existente.
-- **Excluir Livro**: O usuário deve poder remover um livro da sua coleção.
+### Diagrama de Classes
+<div align="center" style="margin-top: 20px;">
+  <img src="public/class-diagram/img-diagram.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
 
-## Requisitos Não Funcionais
+## User Interface (views)
+### Novo Livro
+- Usuário adiciona um novo livro a sua biblioteca.
+- Inputs opcionais de ano de publicação e páginas.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/newbook.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
 
-### 1. Segurança
-- Senhas armazenadas de forma segura (hash).
-- Proteção contra fixação e sequestro de sessão.
-- Validação de entrada em todos os formulários para prevenir injeção de SQL e XSS.
+### Biblioteca
+- Exibe todos os livros da biblioteca do usuário.
+- Livros são organizados na ordem de status (em leitura, lidos e por ler).
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/library.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
 
-### 2. Tecnologia
-- **Frontend**: HTML e CSS para estrutura e estilização.
-- **Backend**: PHP 8+ com Orientação a Objetos (POO).
-- **Banco de Dados**: Utilização de PDO para todas as interações. Escolha um banco de dados relacional (MySQL, PostgreSQL, SQLite).
-- **Gerenciamento de Sessões**: Funções nativas de sessão do PHP.
+### Pesquisa
+- Usuário pode pesquisar por livros.
+- Pode-se pesquisar por texto ou nos atalhos rápidos de filtrar livros por status.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/search.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
 
-## Regras de Negócio
-- Um usuário só pode visualizar, editar ou excluir os livros que ele mesmo catalogou.
-- O nome de usuário deve ser único no registro.
-- Ao adicionar ou editar um livro, o **Título** e o **Autor** são campos obrigatórios.
-- A **Avaliação** de um livro deve estar entre 1 e 5.
-- A **Data de Leitura**, se informada, não pode ser uma data futura.
-- O **Ano de Publicação**, se informado, deve ser um ano válido (não pode ser no futuro).
-- O nome de usuário deve ter no mínimo 3 caracteres e no máximo 50.
-- A senha deve ter no mínimo 8 caracteres, contendo pelo menos uma letra maiúscula, uma letra minúscula e um número.
+### Gerenciar Livro
+- Usuário pode editar os dados do livro ou excuí-lo.
+- Para não diminuir a carga cognitiva apenas as partes que são editadas com mais frequência ficam aparentes, para editar dados técnicos ou o status do livro precisa clicar na caixa que expande e exibe os campos de edição dos dados.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/editbook.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
 
-## Dicas para a Abstração
-- Pense em como as classes **User** e **Book** se relacionam no banco de dados (relação 1:N).
-- Como você vai encapsular as operações de banco de dados em suas classes **DAO**?
-- Qual a melhor forma de validar os dados de entrada para cada atributo de um livro?
-- Como você pode reutilizar código para a renderização de formulários ou tabelas?
+### Gráficos
+- Usuário pode ver dados sobre os livros na biblioteca.
+- Relações entre páginas, categorias e status de livros.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/charts.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
+
+### Editar Conta
+- Usuário pode editar seu username e email.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/editaccount.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
+
+### Login
+- Formulário de login.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/login.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
+
+### Registro
+- Formulário de registro.
+<div align="center" style="margin-top: 20px;">
+  <img src="public/assets/register.jpg" style="border-radius: 20px; max-width: 80%; height: auto;">
+</div>
+
