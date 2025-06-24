@@ -1,2 +1,1 @@
-- dados da biblioteca e usuario com charts
 - chamar métodos para que mensagens de erro exception aparecer tratada e com UI no layout do site

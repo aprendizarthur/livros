@@ -9,16 +9,10 @@
 
     $sessionManager = new SessionManager;
     $sessionManager->redirectNOTLoggedIN();
-
-    $database = new Database("localhost", "livros", "root", "");
-    $bookDAO = new BookDAO($database);
     
     $AuthController = new AuthController;
     //aguardando possível logout no POST submit-logout
     $AuthController->LogoutUser();
-
-    $LibraryController = new LibraryController;
-
 ?>
 
 <!DOCTYPE html>
@@ -42,46 +36,46 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <!--Charts JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-11 col-md-12 box-nav d-flex justify-content-around align-items-center">
                 <a href="newbook.php"><i class="fa-solid fa-plus fa-xl"></i></a>
-                <a class="selected" href="library.php"><i class="fa-solid fa-book-bookmark fa-xl"></i></a>
-                <a href="charts.php"><i class="fa-solid fa-chart-simple fa-xl"></i></a>
+                <a href="library.php"><i class="fa-solid fa-book-bookmark fa-xl"></i></a>
+                <a class="selected" href="charts.php"><i class="fa-solid fa-chart-simple fa-xl"></i></a>
                 <a href="../auth/update.php"><i class="fa-solid fa-user fa-xl"></i></a>
                 <form id="form-logout" method="POST"><button class="btn-submit-alt" name="submit-logout" type="submit" style="color:rgb(255, 178, 178);"><i class="fa-solid fa-power-off fa-xl"></i></button></form>
             </div>
             <div class="col-11 col-md-12 box-content">
-                <h1 class="dm-sans-bold">Minha biblioteca</h1>
-
-                
-                <form id="form-search" method="GET" class="dm-sans-regular d-inline">
-                    <div class="form-group">
-                        <input required placeholder="  Pesquisar por título ou gênero" type="search" name="search" id="search">
-                        <i class="fa-solid fa-filter fa-sm mx-2"></i> 
-                        <a class="filter" href="library.php?search=em-leitura"><span class="dm-sans-light">Lendo</span></a>
-                        <a class="filter" href="library.php?search=lidos"><span class="dm-sans-light">Lidos</span></a>
-                        <a class="filter" href="library.php?search=por-ler"><span class="dm-sans-light">Por ler</span></a>
+                <div class="row d-flex p-2">
+                    <div class="col-12 col-md-6 box-canvas">
+                        <h2 class="dm-sans-bold mb-3">Livros por Status</h2>
+                        <canvas class="mb-5" id="chartStatus"></canvas>
                     </div>
-                </form>
-                
-                <div class="row d-flex justify-content-left box-list-books">
-                    <?php 
-                        //exibindo resultado de pesquisa do usuário
-                        try {
-                            $LibraryController->SearchBook($bookDAO) ;
-                        } catch (\Exception $e) {echo $e->getMessage();}
+                    
+                    <div class="col-12 col-md-6 box-canvas">
+                        <h2 class="dm-sans-bold mb-3">Livros por nº de Páginas</h2>
+                        <canvas class="mb-5" id="chartTotalPages"></canvas>
+                    </div>
 
-                        //exibindo biblioteca do usuário (quando não houver pesquisa no GET)
-                        try {
-                            $LibraryController->ShowLibrary($bookDAO);
-                        } catch (\Exception $e) {echo $e->getMessage();}
-                    ?>
+                    <div class="col-12 col-md-6 box-canvas">
+                        <h2 class="dm-sans-bold mb-3">Páginas por Status</h2>
+                        <canvas class="mb-5" id="chartPages"></canvas>
+                    </div>
+                    
+                    <div class="d-none d-lg-block col-12 col-md-6 box-canvas">
+                        <h2 class="dm-sans-bold mb-3">Livros por Gênero</h2>
+                        <canvas class="mb-5" id="chartGenre"></canvas>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <!--Chamando script JS que gera os gráficos-->
+    <script src="../../../public/js/charts.js"></script>
 </body>
 </html>

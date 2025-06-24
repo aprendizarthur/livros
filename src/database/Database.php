@@ -2,7 +2,9 @@
 declare(strict_types=1);
 namespace database;
 
-//Classe que instancia um objeto database que contém a conexão com o DB
+/**
+ * Classe que instancia um objeto database que serve para pegar a conexão com o DB
+ */
 class Database
 {
     private static $PDO = null;

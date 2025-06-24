@@ -190,4 +190,55 @@ class BookDAO
             echo $e->getMessage();
         }
     }
+
+    /**
+     * Método que retorna todos os dados da biblioteca que serão utilizados nos gráficos
+     * @return array
+     */
+    public function getBooksDataforCharts(int $userID) : array {
+        try {
+            $PDO = $this->db->getConnection();
+            $res = $PDO->prepare
+            ("SELECT
+                COUNT(CASE WHEN bookstatus = 'lidos' THEN 1 ELSE NULL END) AS total_livros_lidos,
+                COUNT(CASE WHEN bookstatus = 'em-leitura' THEN 1 ELSE NULL END) AS total_livros_leitura,
+                COUNT(CASE WHEN bookstatus = 'por-ler' THEN 1 ELSE NULL END) AS total_livros_ler,
+                SUM(CASE WHEN bookstatus = 'lidos' THEN pages ELSE 0 END) AS total_paginas_lidos,
+                SUM(CASE WHEN bookstatus = 'em-leitura' THEN pages ELSE 0 END) AS total_paginas_leitura,
+                SUM(CASE WHEN bookstatus = 'por-ler' THEN pages ELSE 0 END) AS total_paginas_ler,
+                COUNT(CASE WHEN pages < 200 THEN 1 ELSE NULL END) AS livros_200,
+                COUNT(CASE WHEN pages >= 200 AND pages < 400 THEN 1 ELSE NULL END) AS livros_200_400,
+                COUNT(CASE WHEN pages >= 400 AND pages < 600 THEN 1 ELSE NULL END) AS livros_400_600,
+                COUNT(CASE WHEN pages >= 600 AND pages < 800 THEN 1 ELSE NULL END) AS livros_600_800,
+                COUNT(CASE WHEN pages >= 800 AND pages < 100 THEN 1 ELSE NULL END) AS livros_800_1000,
+                COUNT(CASE WHEN pages > 1000 THEN 1 ELSE NULL END) AS livros_1000,
+                COUNT(CASE WHEN genre = 'Autoajuda' THEN 1 ELSE NULL END) AS total_autoajuda,
+                COUNT(CASE WHEN genre = 'Aventura' THEN 1 ELSE NULL END) AS total_aventura,
+                COUNT(CASE WHEN genre = 'Biografia' THEN 1 ELSE NULL END) AS total_biografia,
+                COUNT(CASE WHEN genre = 'Drama' THEN 1 ELSE NULL END) AS total_drama,
+                COUNT(CASE WHEN genre = 'Fantasia' THEN 1 ELSE NULL END) AS total_fantasia,
+                COUNT(CASE WHEN genre = 'Ficção' THEN 1 ELSE NULL END) AS total_ficcao,
+                COUNT(CASE WHEN genre = 'Ficção Científica' THEN 1 ELSE NULL END) AS total_ficcao_cientifica,
+                COUNT(CASE WHEN genre = 'Filosofia' THEN 1 ELSE NULL END) AS total_filosofia,
+                COUNT(CASE WHEN genre = 'História' THEN 1 ELSE NULL END) AS total_historia,
+                COUNT(CASE WHEN genre = 'Infantil' THEN 1 ELSE NULL END) AS total_infantil,
+                COUNT(CASE WHEN genre = 'Livro Didáticos' THEN 1 ELSE NULL END) AS total_livros_didaticos,
+                COUNT(CASE WHEN genre = 'Mistério' THEN 1 ELSE NULL END) AS total_misterio,
+                COUNT(CASE WHEN genre = 'Não-Ficção' THEN 1 ELSE NULL END) AS total_nao_ficcao,
+                COUNT(CASE WHEN genre = 'Poesia' THEN 1 ELSE NULL END) AS total_poesia,
+                COUNT(CASE WHEN genre = 'Romance' THEN 1 ELSE NULL END) AS total_romance,
+                COUNT(CASE WHEN genre = 'Suspense' THEN 1 ELSE NULL END) AS total_suspense,
+                COUNT(CASE WHEN genre = 'Tecnologia' THEN 1 ELSE NULL END) AS total_tecnologia
+             FROM 
+                books
+             WHERE 
+                id_user = :i");
+            $res->bindValue(":i", $userID);
+            $res->execute();
+            $resultado = $res->fetch(\PDO::FETCH_ASSOC);
+            return $resultado;
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 }

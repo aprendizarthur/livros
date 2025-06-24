@@ -23,11 +23,6 @@
     } catch (\Exception $e) {
         echo $e->getMessage();
     }
-
-    $AuthController = new AuthController;
-    //aguardando possível logout no POST submit-logout
-    $AuthController->LogoutUser(); 
-
 ?>
 
 <!DOCTYPE html>
