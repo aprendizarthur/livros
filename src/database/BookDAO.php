@@ -92,7 +92,7 @@ class BookDAO
      * @param integer $bookID
      * @return array
      */
-    public function AllBookData(int $bookID) : array {
+    public function getBookData(int $bookID) : array {
         try {
             $PDO = $this->db->getConnection();
             $res = $PDO->prepare("SELECT * FROM books WHERE id = :i");

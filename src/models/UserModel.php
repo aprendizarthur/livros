@@ -97,36 +97,4 @@ class UserModel
         }
         return [];
     }
-
-    /**
-     * Método get que retorna username
-     * @return string
-     */
-    public function getUsername() : string{
-        return $this->username;
-    }
-
-    /**
-     * Método get que retorna email
-     * @return string
-     */
-    public function getEmail() : string{
-        return $this->email;
-    }
-
-    /**
-     * Método get que retorna senha
-     * @return string
-     */
-    public function getPass() : string{
-        return $this->pass;
-    }
-
-    /**
-     * Método get que retorna confirmação da senha
-     * @return string
-     */
-    public function getPassC() : string{
-        return $this->passC;
-    } 
 }

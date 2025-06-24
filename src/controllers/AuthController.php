@@ -42,7 +42,7 @@ class AuthController
      * @param array $dadosPOST
      * @return void
      */
-    public function LoginUser(UserDAO $userDAO, UserModel $userModel, array $dadosPOST){
+    public function LoginUser(UserDAO $userDAO, UserModel $userModel, array $dadosPOST) : void{
         $this->userDAO = $userDAO;
         $this->userModel = $userModel;
 

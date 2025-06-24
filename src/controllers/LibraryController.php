@@ -99,7 +99,7 @@ class LibraryController
         $bookID = (int)filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         
         //pegando dados do livro no DB com bookDAO
-        $bookDATA = $this->bookDAO->AllBookData($bookID);
+        $bookDATA = $this->bookDAO->getBookData($bookID);
 
         //formatando status do livro vindo do DB para exibir pro usuário (ex: por-ler -> Por Ler)
         $formatedStatus = match($bookDATA['bookstatus']){

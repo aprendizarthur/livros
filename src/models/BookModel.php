@@ -40,12 +40,6 @@ class BookModel
      */
     private string $genre;  
     /**
-     * Propriedade que recebe a data em que foi concluída a leitura do livro
-     *
-     * @var string
-     */
-    private string $readingDate;
-    /**
      * Propriedade que recebe as anotações do usuário sobre o livro
      *
      * @var string

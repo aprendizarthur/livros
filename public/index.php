@@ -27,7 +27,7 @@
 <body>
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="col-11 col-md-6 box-form text-center">
+            <div class="col-11 col-md-6 box-form text-center p-5">
                 <a class="btn btn-primary dm-sans-regular" href="../src/views/auth/login.php">Entrar</a>
                 <a class="btn btn-secondary dm-sans-regular" href="../src/views/auth/register.php">Criar conta</a>
             </div>
