@@ -14,7 +14,7 @@ Sistema web onde usuários autenticados possam catalogar seus livros, atribuindo
 - Colocar backdrop-filter: blur() para aplicar desfoque no plano de fundo.
   
 ## Tecnologias
-- PHP, MYSQL, HTML, CSS, Bootstrap (Layout Responsivo), Javascript, Charts.js
+- PHP, MYSQL, HTML, CSS, Bootstrap (Layout Responsivo), Javascript, Charts.js, Ícones Fontawesome
 - Arquitetura MVC (primeira vez que implemento).
 - PDO para queries trazendo mais segurança tanto para o site quanto para o banco de dados.
 - JSON para transferir dados do PHP (banco de dados) para o JS (gráficos com charts.js).
