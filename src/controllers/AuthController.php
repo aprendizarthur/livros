@@ -109,7 +109,7 @@ class AuthController
             $this->userDAO->RegisterUserDB($dadosPOST['username'], $dadosPOST['email'], $dadosPOST['pass']);
     
             //enviando dados para a session e encaminhando para a library
-            $dadosUser = $this->userDAO->getUserData($dadosPOST['username']);
+            $dadosUser = $this->userDAO->getUserData($dadosPOST['username'], 'username');
             $_SESSION['user-email'] = $dadosPOST['email'];
             $_SESSION['user-username'] = $dadosPOST['username'];
             $_SESSION['user-id'] = (int)$dadosUser['id'];
