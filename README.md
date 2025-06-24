@@ -14,7 +14,7 @@ Sistema web onde usuários autenticados possam catalogar seus livros, atribuindo
 - Colocar backdrop-filter: blur() para aplicar desfoque no plano de fundo.
   
 ## Tecnologias
-- PHP, MYSQL, HTML, CSS, Bootstrap (Layout Responsivo), Javascript, Charts.js, Ícones Fontawesome
+- PHP, Composer, MYSQL, HTML, CSS, Bootstrap (Layout Responsivo), Javascript, Charts.js, Ícones Fontawesome
 - Arquitetura MVC (primeira vez que implemento).
 - Foi utilizado strict_types no PHP.
 - Hashing de senha no banco de dados.
@@ -23,6 +23,7 @@ Sistema web onde usuários autenticados possam catalogar seus livros, atribuindo
 - Astah UML para criar o diagrama de classes.
 
 ## Observações / Melhorias
+- O código foi todo documentado, no PHP usei a extensão do VSCode chamada DocBlocker e nas demais linguagens documentei por meio de comentários.
 - Tudo o que foi implementado no projeto foi de forma consciente pois não peguei nenhum código no cntrl c cntrl v, mas acredito que quando eu iniciar o meu próximo projeto eu venha a ter dificuldade para organizar as classes do MVC. Porém com a prática vai se tornar algo automático.
 - Preciso melhorar o tratamento de erros, atualmente lanço exceptions e dou echo nas views.
 
